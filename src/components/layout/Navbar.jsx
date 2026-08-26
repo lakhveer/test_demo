@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import { useTheme } from '../../context/ThemeContext';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -39,6 +41,14 @@ function Navbar() {
               </Link>
             ))}
             <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              className="text-secondary-600 hover:text-primary-600 p-2 rounded-md"
+            >
+              {theme === 'dark' ? <FiSun size={20} /> : <FiMoon size={20} />}
+            </button>
+            <button
               className="btn"
             >
               Connect
@@ -71,6 +81,14 @@ function Navbar() {
                   {item.name}
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex items-center px-3 py-2 text-base font-medium text-secondary-600 hover:text-primary-600"
+              >
+                {theme === 'dark' ? <FiSun className="mr-2" size={18} /> : <FiMoon className="mr-2" size={18} />}
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </button>
               <button
                 className="block px-3 py-2 text-base font-medium text-white bg-primary-600 hover:bg-primary-700"
                 onClick={() => setIsOpen(false)}
